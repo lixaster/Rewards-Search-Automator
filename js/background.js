@@ -1,56 +1,5 @@
-// Words list for searches
-const words = [
-  "Best coffee shops near me",
-  "How to learn coding online",
-  "Healthy dinner recipes quick",
-  "Top travel destinations 2023",
-  "Funny cat videos compilation",
-  "Learn to play guitar tutorial",
-  "Mindfulness meditation techniques",
-  "DIY home decor ideas",
-  "New sci-fi books 2023",
-  "Beginner workout routine at home",
-  "Photography tips for beginners",
-  "Interesting facts about space",
-  "Quick and easy dessert recipes",
-  "Upcoming movie releases",
-  "Popular podcast series 2023",
-  "Natural remedies for headaches",
-  "Online language learning platforms",
-  "Best budget-friendly gadgets",
-  "Funny jokes for a good laugh",
-  "Artificial intelligence basics",
-  "Vegan lunch ideas for work",
-  "Healthy habits for a happy life",
-  "DIY garden landscaping ideas",
-  "Learn to draw step by step",
-  "Effective time management tips",
-  "Motivational quotes for success",
-  "Popular mobile games 2023",
-  "How to start a blog",
-  "Mind-bending optical illusions",
-  "Home workout equipment reviews",
-  "Exciting weekend getaways",
-  "Delicious smoothie recipes",
-  "Introduction to astrophysics",
-  "Best educational YouTube channels",
-  "Cute puppy training tips",
-  "Interesting historical events",
-  "Top 10 TED talks of all time",
-  "DIY skincare routine at home",
-  "Unique and easy craft ideas",
-  "Mediterranean diet meal plan",
-  "Must-read classic novels",
-  "How to grow your own herbs",
-  "Virtual reality gaming experiences",
-  "Famous motivational speeches",
-  "Tips for better sleep quality",
-  "Healthy habits for busy professionals",
-  "Learn to play piano online",
-  "Delicious vegetarian dinner ideas",
-  "Exciting science experiments at home",
-  "Popular workout playlists 2023",
-];
+// 使用外部词表：从 data/words-cn.js 导入
+import words from "../data/words-cn.js";
 
 // Configuration
 const config = {
@@ -157,6 +106,12 @@ function notifyPopup(message) {
 async function enableDebugger(tabId) {
   return new Promise((resolve, reject) => {
     chrome.debugger.attach({ tabId }, "1.2", function () {
+      if (chrome.runtime.lastError) {
+        console.warn(
+          `Failed to attach debugger to tab ${tabId}: ${chrome.runtime.lastError.message}`,
+        );
+        return reject(new Error(chrome.runtime.lastError.message));
+      }
       console.log(`Debugger enabled for tab: ${tabId}`);
       resolve(true);
     });
@@ -167,6 +122,13 @@ async function enableDebugger(tabId) {
 async function disableDebugger(tabId) {
   return new Promise((resolve, reject) => {
     chrome.debugger.detach({ tabId }, function () {
+      if (chrome.runtime.lastError) {
+        // If debugger wasn't attached, ignore the error but resolve gracefully
+        console.warn(
+          `Failed to detach debugger from tab ${tabId}: ${chrome.runtime.lastError.message}`,
+        );
+        return resolve(false);
+      }
       console.log(`Debugger disabled for tab: ${tabId}`);
       resolve(true);
     });
@@ -207,6 +169,12 @@ async function activeMobileAgent(tabId) {
         },
       },
       function () {
+        if (chrome.runtime.lastError) {
+          console.warn(
+            `Network.setUserAgentOverride failed for tab ${tabId}: ${chrome.runtime.lastError.message}`,
+          );
+          return reject(new Error(chrome.runtime.lastError.message));
+        }
         // Then set device metrics
         chrome.debugger.sendCommand(
           {
@@ -225,6 +193,12 @@ async function activeMobileAgent(tabId) {
             screenOrientation: { type: "portraitPrimary", angle: 0 },
           },
           function () {
+            if (chrome.runtime.lastError) {
+              console.warn(
+                `Emulation.setDeviceMetricsOverride failed for tab ${tabId}: ${chrome.runtime.lastError.message}`,
+              );
+              return reject(new Error(chrome.runtime.lastError.message));
+            }
             // Enable touch emulation
             chrome.debugger.sendCommand(
               {
@@ -236,6 +210,12 @@ async function activeMobileAgent(tabId) {
                 maxTouchPoints: 5,
               },
               function () {
+                if (chrome.runtime.lastError) {
+                  console.warn(
+                    `Emulation.setTouchEmulationEnabled failed for tab ${tabId}: ${chrome.runtime.lastError.message}`,
+                  );
+                  return reject(new Error(chrome.runtime.lastError.message));
+                }
                 resolve(true);
               },
             );
@@ -279,6 +259,12 @@ async function activeDesktopAgent(tabId) {
         },
       },
       function () {
+        if (chrome.runtime.lastError) {
+          console.warn(
+            `Network.setUserAgentOverride (desktop) failed for tab ${tabId}: ${chrome.runtime.lastError.message}`,
+          );
+          return reject(new Error(chrome.runtime.lastError.message));
+        }
         chrome.debugger.sendCommand(
           {
             tabId: tabId,
@@ -293,6 +279,12 @@ async function activeDesktopAgent(tabId) {
             screenHeight: config.devices.desktop.height,
           },
           function () {
+            if (chrome.runtime.lastError) {
+              console.warn(
+                `Emulation.setDeviceMetricsOverride (desktop) failed for tab ${tabId}: ${chrome.runtime.lastError.message}`,
+              );
+              return reject(new Error(chrome.runtime.lastError.message));
+            }
             // Disable touch emulation
             chrome.debugger.sendCommand(
               {
@@ -303,6 +295,12 @@ async function activeDesktopAgent(tabId) {
                 enabled: false,
               },
               function () {
+                if (chrome.runtime.lastError) {
+                  console.warn(
+                    `Emulation.setTouchEmulationEnabled (desktop) failed for tab ${tabId}: ${chrome.runtime.lastError.message}`,
+                  );
+                  return reject(new Error(chrome.runtime.lastError.message));
+                }
                 resolve(true);
               },
             );
@@ -319,7 +317,8 @@ function openAuthorWebsite() {
     Math.random() < 0.7
       ? config.general.authorWebsiteLinkThanks[0]
       : config.general.authorWebsiteLinkThanks[1];
-  chrome.tabs.update(searchState.tabId, { url: choice });
+  // 禁止显示作者主页
+  // chrome.tabs.update(searchState.tabId, { url: choice });
 }
 
 // Perform a single search
@@ -568,7 +567,13 @@ chrome.runtime.onConnect.addListener(async function (port) {
       if (!searchState.isRunning) {
         let tabId = await getTabId();
         chrome.debugger.detach({ tabId }, function () {
-          console.log(`Debugger disabled for tab: ${tabId}`);
+          if (chrome.runtime.lastError) {
+            console.warn(
+              `Failed to detach debugger from tab ${tabId} on popup disconnect: ${chrome.runtime.lastError.message}`,
+            );
+          } else {
+            console.log(`Debugger disabled for tab: ${tabId}`);
+          }
         });
       }
     });

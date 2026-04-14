@@ -1,12 +1,12 @@
 {
-  "name": "Rewards Search Automator",
-  "version": "2.2.0",
-  "description": "With this extension, you can automate searches on the Bing search engine to earn points for Microsoft Rewards.",
+  "name": "Rewards 自动搜索器",
+  "version": "2.2.0.1",
+  "description": "(中文)通过这个扩展程序，您可以自动化在必应搜索引擎上的搜索，以赚取微软奖励的积分。",
   "manifest_version": 3,
-  "author": "Andrea Corriga - Strifelab",
+  "author": "Andrea Corriga - Strifelab/ modified by lixaster",
   "action": {
     "default_popup": "index.html",
-    "default_title": "Search Automator"
+    "default_title": "自动搜索器"
   },
   "permissions": ["debugger", "tabs", "alarms", "storage"],
   "icons": {
@@ -15,6 +15,7 @@
     "128": "img/icon128.png"
   },
   "background": {
-    "service_worker": "./js/background.js"
+    "service_worker": "./js/background.js",
+    "type": "module"
   }
 }

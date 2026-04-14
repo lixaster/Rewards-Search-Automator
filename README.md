@@ -1,3 +1,6 @@
+<!-- 中文版请见 README-cn.md -->
+> 中文版请查看：[README-cn.md](README-cn.md)
+
 <div align="center">
 
 # 🏆 Rewards Search Automator

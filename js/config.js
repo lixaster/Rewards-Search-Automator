@@ -1,13 +1,13 @@
 let config = {
   general: {
-    appVersion: "v2.2.0",
+    appVersion: "v2.2.0.1",
     authorWebsiteLink: "https://andreacorriga.com",
     authorWebsiteLinkThanks: [
       "https://andreacorriga.com/rewards-search-automator/thanks",
       "https://rawe-ceek.strifelab.com/",
     ],
     repositoryGithubLink:
-      "https://github.com/AsoStrife/Rewards-Search-Automator",
+      "https://github.com/lixaster/Rewards-Search-Automator",
     storeLink:
       "https://chromewebstore.google.com/detail/rewards-search-automator/paohfpjfibchbhbkdnlhjpfblafifehg?hl=it",
     rewardsLink: "https://rewards.microsoft.com/",

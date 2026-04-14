@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rewards Search Automator</title>
+    <title>Rewards 自动搜索器</title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/fa-all.min.css" rel="stylesheet">
     <link href="./css/custom.css" rel="stylesheet">
@@ -16,8 +16,8 @@
         <div class="header-icon">
             <i class="fa-solid fa-trophy"></i>
         </div>
-        <h1 class="app-title">Rewards Automator</h1>
-        <p class="app-subtitle">Automated Bing searches for Microsoft Rewards</p>
+    <h1 class="app-title">Rewards 自动搜索器</h1>
+    <p class="app-subtitle">为 Microsoft Rewards 自动执行 Bing 搜索</p>
     </div>
 
     <div class="container-fluid px-3">
@@ -26,19 +26,19 @@
             <div class="col-4">
                 <button type="button" class="btn btn-action btn-desktop w-100" id="desktopButton">
                     <i class="fa-solid fa-desktop"></i>
-                    <span>Desktop</span>
+                    <span>桌面</span>
                 </button>
             </div>
             <div class="col-4">
                 <button type="button" class="btn btn-action btn-mobile w-100" id="mobileButton">
                     <i class="fa-solid fa-mobile-screen"></i>
-                    <span>Mobile</span>
+                    <span>移动设备</span>
                 </button>
             </div>
             <div class="col-4">
                 <button type="button" class="btn btn-action btn-both w-100" id="desktopMobileButton">
                     <i class="fa-solid fa-layer-group"></i>
-                    <span>Both</span>
+                    <span>同时</span>
                 </button>
             </div>
         </div>
@@ -48,7 +48,7 @@
             <div class="col-12">
                 <button type="button" class="btn btn-danger w-100" id="stopButton">
                     <i class="fa-solid fa-stop"></i>
-                    <span>Stop Searches</span>
+                    <span>停止搜索</span>
                 </button>
             </div>
         </div>
@@ -68,14 +68,14 @@
         <div class="row g-2 mb-2">
             <div class="col-6">
                 <label class="form-label">
-                    <i class="fa-solid fa-desktop"></i> Desktop
+                    <i class="fa-solid fa-desktop"></i> 桌面
                 </label>
                 <input type="number" class="form-control form-control-sm" 
                     id="totDesktopSearchesForm" min="1" value="">
             </div>
             <div class="col-6">
                 <label class="form-label">
-                    <i class="fa-solid fa-mobile-screen"></i> Mobile
+                    <i class="fa-solid fa-mobile-screen"></i> 移动设备
                 </label>
                 <input type="number" class="form-control form-control-sm" 
                     id="totMobileSearchesForm" min="1" value="">
@@ -85,14 +85,14 @@
         <div class="row g-2 mb-1">
             <div class="col-6">
                 <label class="form-label">
-                    <i class="fa-solid fa-hourglass-start"></i> Min (ms)
+                    <i class="fa-solid fa-hourglass-start"></i> 最小（毫秒）
                 </label>
                 <input type="number" class="form-control form-control-sm"
                     id="waitingBetweenSearchesFormMin" min="100" value="">
             </div>
             <div class="col-6">
                 <label class="form-label">
-                    <i class="fa-solid fa-hourglass-end"></i> Max (ms)
+                    <i class="fa-solid fa-hourglass-end"></i> 最大（毫秒）
                 </label>
                 <input type="number" class="form-control form-control-sm"
                     id="waitingBetweenSearchesFormMax" min="100" value="">
@@ -100,7 +100,8 @@
         </div>
 
         <!-- F1 Promo Banner -->
-        <div class="row">
+         <!-- 删除Formula 1 Fan -->
+        <!-- <div class="row">
             <div class="col-12">
                 <a href="" 
                    target="_blank" 
@@ -111,7 +112,7 @@
                     <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <!-- Footer -->
@@ -121,25 +122,25 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link footer-link" href="" target="_blank"
-                        title="Author's Website" id="authorWebsiteLink">
+                        title="作者网站" id="authorWebsiteLink">
                         <i class="fa-solid fa-user-astronaut"></i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link footer-link" href=""
-                        target="_blank" title="Source Code" id="repositoryGithubLink">
+                        target="_blank" title="源代码" id="repositoryGithubLink">
                         <i class="fa-brands fa-github"></i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link footer-link" href=""
-                        target="_blank" title="Chrome Store" id="storeLink">
+                        target="_blank" title="Chrome 商店" id="storeLink">
                         <i class="fa-brands fa-chrome"></i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link footer-link" href="" 
-                        target="_blank" title="Microsoft Rewards" id="rewardsLink">
+                        target="_blank" title="Microsoft Rewards（微软奖励）" id="rewardsLink">
                         <i class="fa-solid fa-medal"></i>
                     </a>
                 </li>
