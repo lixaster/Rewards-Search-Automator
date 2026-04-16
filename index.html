@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rewards 自动搜索器</title>
+    <title>Rewards 自动执行器</title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/fa-all.min.css" rel="stylesheet">
     <link href="./css/custom.css" rel="stylesheet">
@@ -16,7 +16,7 @@
         <div class="header-icon">
             <i class="fa-solid fa-trophy"></i>
         </div>
-    <h1 class="app-title">Rewards 自动搜索器</h1>
+    <h1 class="app-title">Rewards 自动执行器</h1>
     <p class="app-subtitle">为 Microsoft Rewards 自动执行 Bing 搜索</p>
     </div>
 
@@ -85,17 +85,17 @@
         <div class="row g-2 mb-1">
             <div class="col-6">
                 <label class="form-label">
-                    <i class="fa-solid fa-hourglass-start"></i> 最小（毫秒）
+                    <i class="fa-solid fa-hourglass-start"></i> 最小（秒）
                 </label>
                 <input type="number" class="form-control form-control-sm"
-                    id="waitingBetweenSearchesFormMin" min="100" value="">
+                    id="waitingBetweenSearchesFormMin" min="1" value="">
             </div>
             <div class="col-6">
                 <label class="form-label">
-                    <i class="fa-solid fa-hourglass-end"></i> 最大（毫秒）
+                    <i class="fa-solid fa-hourglass-end"></i> 最大（秒）
                 </label>
                 <input type="number" class="form-control form-control-sm"
-                    id="waitingBetweenSearchesFormMax" min="100" value="">
+                    id="waitingBetweenSearchesFormMax" min="1" value="">
             </div>
         </div>
 

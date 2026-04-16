@@ -41,10 +41,11 @@ let config = {
   },
 
   searches: {
-    millisecondsMin: 8000,
-    millisecondsMax: 10000,
-    desktop: 3,
-    mobile: 3,
+    // values are in seconds for the UI; converted to ms when starting searches
+    secondsMin: 8,
+    secondsMax: 10,
+    desktop: 20,
+    mobile: 20,
   },
 
   domElements: {

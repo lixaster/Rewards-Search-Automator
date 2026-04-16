@@ -47,17 +47,17 @@ $(config.domElements.totMobileSearchesForm).on("change", function () {
 });
 
 $(config.domElements.waitingBetweenSearchesFormMin).on("change", function () {
-  config.searches.millisecondsMin = $(
+  config.searches.secondsMin = $(
     config.domElements.waitingBetweenSearchesFormMin,
   ).val();
-  localStorage.setItem("millisecondsMin", config.searches.millisecondsMin);
+  localStorage.setItem("secondsMin", config.searches.secondsMin);
 });
 
 $(config.domElements.waitingBetweenSearchesFormMax).on("change", function () {
-  config.searches.millisecondsMax = $(
+  config.searches.secondsMax = $(
     config.domElements.waitingBetweenSearchesFormMax,
   ).val();
-  localStorage.setItem("millisecondsMax", config.searches.millisecondsMax);
+  localStorage.setItem("secondsMax", config.searches.secondsMax);
 });
 
 // Start search desktop
@@ -93,8 +93,9 @@ async function startSearches(searchType) {
   const settings = {
     desktopSearches: parseInt(config.searches.desktop),
     mobileSearches: parseInt(config.searches.mobile),
-    millisecondsMin: parseInt(config.searches.millisecondsMin),
-    millisecondsMax: parseInt(config.searches.millisecondsMax),
+    // convert seconds (user input) to milliseconds for the background worker
+    millisecondsMin: parseInt(config.searches.secondsMin) * 1000,
+    millisecondsMax: parseInt(config.searches.secondsMax) * 1000,
   };
 
   chrome.runtime.sendMessage(
@@ -124,19 +125,19 @@ function setDefaultUI() {
     localStorage.getItem("desktopSearches") || config.searches.desktop;
   config.searches.mobile =
     localStorage.getItem("mobileSearches") || config.searches.mobile;
-  config.searches.millisecondsMin =
-    localStorage.getItem("millisecondsMin") || config.searches.millisecondsMin;
-  config.searches.millisecondsMax =
-    localStorage.getItem("millisecondsMax") || config.searches.millisecondsMax;
+  config.searches.secondsMin =
+    localStorage.getItem("secondsMin") || config.searches.secondsMin;
+  config.searches.secondsMax =
+    localStorage.getItem("secondsMax") || config.searches.secondsMax;
 
   // Set numberOfSearches default values inside the input
   $(config.domElements.totDesktopSearchesForm).val(config.searches.desktop);
   $(config.domElements.totMobileSearchesForm).val(config.searches.mobile);
   $(config.domElements.waitingBetweenSearchesFormMin).val(
-    config.searches.millisecondsMin,
+    config.searches.secondsMin,
   );
   $(config.domElements.waitingBetweenSearchesFormMax).val(
-    config.searches.millisecondsMax,
+    config.searches.secondsMax,
   );
 
   $(config.domElements.authorWebsiteLink).attr(
